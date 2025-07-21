@@ -1,0 +1,17 @@
+1. login page and sign in page 
+2. admin section 
+3. candidate list buttons to vote ,party list 
+4. notification after vote added 
+
+
+
+profile page
+current picture - option to change the picture
+username - option to change
+full name 
+email address - option to change
+contact information
+change password 
+notification through email - optional
+button to delete account
+display active login 
