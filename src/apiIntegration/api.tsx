@@ -1,4 +1,4 @@
-import { ApiUrl } from "../apiUrl/ApiUrl";
+const API_BASE_URL = import.meta.env.VITE_API_URL;
 
 interface UserProfileOptions extends RequestInit {
   headers?: {
@@ -7,7 +7,7 @@ interface UserProfileOptions extends RequestInit {
 }
 
 export const UserProfile = async (options: UserProfileOptions = {}) => {
-  const url = `${ApiUrl}/user/profile`;
+  const url = `${API_BASE_URL}/user/profile`;
   const token_value = localStorage.getItem("token");
 
   const headers: { [key: string]: string } = {
@@ -37,7 +37,7 @@ export const PasswordUpdate = async (
   obj: any,
   options: UserProfileOptions = {}
 ) => {
-  const url = `${ApiUrl}/user/profile/password`;
+  const url = `${API_BASE_URL}/user/profile/password`;
   const token_value = localStorage.getItem("token");
 
   const headers: { [key: string]: string } = {
@@ -65,7 +65,7 @@ export const PasswordUpdate = async (
 };
 
 export const SignUpApi = async (Obj: any) => {
-  const url = `${ApiUrl}/user/signup`;
+  const url = `${API_BASE_URL}/user/signup`;
   const options = {
     method: "POST",
     body: Obj,
@@ -80,7 +80,7 @@ export const SignUpApi = async (Obj: any) => {
 };
 
 export const SignInApi = async (Obj: any) => {
-  const url = `${ApiUrl}/user/login`;
+  const url = `${API_BASE_URL}/user/login`;
   const options = {
     method: "POST",
     headers: {
@@ -98,7 +98,7 @@ export const SignInApi = async (Obj: any) => {
 };
 
 export const UserList = async () => {
-  const url = `${ApiUrl}/user/userList`;
+  const url = `${API_BASE_URL}/user/userList`;
 
   const options = {
     method: "GET",
@@ -120,7 +120,7 @@ export const DeleteUser = async (
   userID: any,
   options: UserProfileOptions = {}
 ) => {
-  const url = `${ApiUrl}/user/${userID}`;
+  const url = `${API_BASE_URL}/user/${userID}`;
   const token_value = localStorage.getItem("token");
 
   const headers: { [key: string]: string } = {
@@ -147,7 +147,7 @@ export const DeleteUser = async (
 };
 
 export const AddUser = async (Obj: any) => {
-  const url = `${ApiUrl}/user`;
+  const url = `${API_BASE_URL}/user`;
   const options = {
     method: "POST",
     body: Obj,
@@ -166,10 +166,12 @@ export const UpdateUser = async (
   Obj: any,
   options: UserProfileOptions = {}
 ) => {
-  const url = `${ApiUrl}/user/${userID}`;
+  const url = `${API_BASE_URL}/user/${userID}`;
   const token_value = localStorage.getItem("token");
+
   const headers: { [key: string]: string } = {
-    ...options.headers,
+    "Content-Type": "application/json",
+    ...(options.headers || {}),
   };
 
   if (token_value) {
@@ -195,7 +197,7 @@ export const Addcandidate = async (
   Obj: any,
   options: UserProfileOptions = {}
 ) => {
-  const url = `${ApiUrl}/candidate`;
+  const url = `${API_BASE_URL}/candidate`;
   const token_value = localStorage.getItem("token");
 
   const headers: { [key: string]: string } = {
@@ -223,7 +225,7 @@ export const Addcandidate = async (
 };
 
 export const CandidateList = async () => {
-  const url = `${ApiUrl}/candidate/candidateList`;
+  const url = `${API_BASE_URL}/candidate/candidateList`;
 
   const options = {
     method: "GET",
@@ -242,7 +244,7 @@ export const CandidateList = async () => {
 };
 
 export const CandidateCount = async () => {
-  const url = `${ApiUrl}/candidate/vote/count`;
+  const url = `${API_BASE_URL}/candidate/vote/count`;
 
   const options = {
     method: "GET",
@@ -265,7 +267,7 @@ export const UpdateCandidate = async (
   Obj: any,
   options: UserProfileOptions = {}
 ) => {
-  const url = `${ApiUrl}/candidate/${candidateID}`;
+  const url = `${API_BASE_URL}/candidate/${candidateID}`;
   const token_value = localStorage.getItem("token");
 
   const headers: { [key: string]: string } = {
@@ -296,7 +298,7 @@ export const DeleteCandidate = async (
   candidateID: any,
   options: UserProfileOptions = {}
 ) => {
-  const url = `${ApiUrl}/candidate/${candidateID}`;
+  const url = `${API_BASE_URL}/candidate/${candidateID}`;
   const token_value = localStorage.getItem("token");
 
   const headers: { [key: string]: string } = {
@@ -326,7 +328,7 @@ export const Vote = async (
   candidateID: any,
   options: UserProfileOptions = {}
 ) => {
-  const url = `${ApiUrl}/candidate/vote/${candidateID}`;
+  const url = `${API_BASE_URL}/candidate/vote/${candidateID}`;
   const token_value = localStorage.getItem("token");
 
   const headers: { [key: string]: string } = {
@@ -353,7 +355,7 @@ export const Vote = async (
 };
 
 export const ForgotPasswordApi = async (Obj: any) => {
-  const url = `${ApiUrl}/user/forgotpassword`;
+  const url = `${API_BASE_URL}/user/forgotpassword`;
   const options = {
     method: "POST",
     body: Obj,
@@ -372,7 +374,7 @@ export const ResetPasswordApi = async (
   token: string | undefined,
   Obj: any
 ) => {
-  const url = `${ApiUrl}/user/reset-password/${userID}/${token}`;
+  const url = `${API_BASE_URL}/user/reset-password/${userID}/${token}`;
   const options = {
     "Content-Type": "application/json",
     method: "PUT",
