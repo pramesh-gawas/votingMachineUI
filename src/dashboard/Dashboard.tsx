@@ -1,6 +1,6 @@
 import { useOutletContext } from "react-router-dom";
 import { Home } from "../home/Home";
-import { DashboardSkeleton } from "../skeleton/dashboardSkeleton";
+import { DashboardSkeleton } from "../skeleton/DashboardSkeleton";
 
 interface LayoutContextType {
   loading: boolean;

@@ -11,14 +11,31 @@ import { UpdateCandidates } from "../updateCandidate/UpdateCandidates";
 import { UpdateUsers } from "../updateUser/UpdateUsers";
 import { ApiUrl } from "../apiUrl/ApiUrl";
 import { CardSkeleton } from "../skeleton/CardSkeleton";
+import type { Key } from "react";
 
-export const URl = (path) => {
+export const URl = (path: string) => {
   if (!path) {
     return "https://placehold.co/140x140/cccccc/000000?text=No+Image";
   }
   const normalizedPath = path.replace(/\\/g, "/");
   return `${ApiUrl}/${normalizedPath}`;
 };
+
+interface cardProps {
+  list?: any;
+  renderCandidateCardContent?: any;
+  handleUpdate?: any;
+  handleClose?: any;
+  updateCandidate?: any;
+  open?: boolean;
+  handleDelete?: any;
+  updateUser?: any;
+  compStyle?: any;
+  loadCandidate?: any;
+  loadUser?: any;
+  userID?: string;
+  loading?: boolean;
+}
 
 export const Cards = ({
   list,
@@ -34,7 +51,7 @@ export const Cards = ({
   loadUser,
   userID,
   loading,
-}) => {
+}: cardProps) => {
   const { candidateID } = useParams();
   const numberOfCount = 4;
   return (
@@ -51,54 +68,64 @@ export const Cards = ({
         ? [...Array(numberOfCount)].map((_, index) => (
             <CardSkeleton key={index}></CardSkeleton>
           ))
-        : list?.map((c, index) => (
-            <Card
-              sx={{
-                maxWidth: 295,
-                padding: 5,
-                width: "100%",
-                justifyContent: "center",
-                border: "lightgray",
-                borderRadius: "20px",
-              }}
-              style={{
-                backgroundColor: c.role === "admin" ? "red" : "#1976d2",
-              }}
-              key={index}
-            >
-              <CardMedia
+        : list?.map(
+            (
+              c: {
+                role: string;
+                photo: string;
+                firstname: string | undefined;
+                _id: any;
+              },
+              index: Key | null | undefined
+            ) => (
+              <Card
                 sx={{
-                  height: 240,
+                  maxWidth: 295,
+                  padding: 5,
+                  width: "100%",
+                  justifyContent: "center",
+                  border: "lightgray",
                   borderRadius: "20px",
                 }}
-                image={URl(c.photo)}
-                title={c.firstname}
-              />
-              <CardContent sx={{ flexGrow: 1 }}>
-                {renderCandidateCardContent(c)}
-              </CardContent>
-              <CardActions>
-                {c.role === "admin" ? (
-                  ""
-                ) : (
+                style={{
+                  backgroundColor: c.role === "admin" ? "red" : "#1976d2",
+                }}
+                key={index}
+              >
+                <CardMedia
+                  sx={{
+                    height: 240,
+                    borderRadius: "20px",
+                  }}
+                  image={URl(c.photo)}
+                  title={c.firstname}
+                />
+                <CardContent sx={{ flexGrow: 1 }}>
+                  {renderCandidateCardContent(c)}
+                </CardContent>
+                <CardActions>
+                  {c.role === "admin" ? (
+                    ""
+                  ) : (
+                    <Button
+                      size="small"
+                      sx={{ color: "black" }}
+                      onClick={() => handleDelete(c._id)}
+                    >
+                      delete
+                    </Button>
+                  )}
                   <Button
                     size="small"
-                    color="black"
-                    onClick={() => handleDelete(c._id)}
+                    sx={{ color: "black" }}
+                    onClick={() => handleUpdate(c)}
                   >
-                    delete
+                    update
                   </Button>
-                )}
-                <Button
-                  size="small"
-                  color="black"
-                  onClick={() => handleUpdate(c)}
-                >
-                  update
-                </Button>
-              </CardActions>
-            </Card>
-          ))}
+                </CardActions>
+              </Card>
+            )
+          )}
 
       {open && updateCandidate && (
         <Modal

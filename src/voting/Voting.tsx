@@ -4,11 +4,23 @@ import { Vote, CandidateList } from "../apiIntegration/api";
 
 import { useEffect, useState } from "react";
 import { Item } from "../home/Home";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@mui/material";
 import { Toaster } from "../common/Toaster";
+
+interface CandidateItemInterface {
+  _id: string;
+  name: string;
+  party: string;
+  photo?: string;
+}
+
+// interface CandidateListProps {
+//   candidates: Candidate[];
+//   handleVote: (candidateId: string) => void;
+// }
+
 export const Voting = () => {
-  const { candidateID } = useParams();
   const Navigate = useNavigate();
   const [candidate, setCandidateList] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -16,13 +28,12 @@ export const Voting = () => {
   useEffect(() => {
     const loadCandidateList = async () => {
       setLoading(true);
-      // setFetchError('');
       try {
         const candidatelist = await CandidateList();
         setCandidateList(candidatelist?.candidateList);
-      } catch (err) {
-      } finally {
         setLoading(false);
+      } catch (err) {
+        console.error(err);
       }
     };
 
@@ -44,7 +55,7 @@ export const Voting = () => {
     <>
       <h2>Vote your candidate</h2>
       <Grid container spacing={3} sx={{ justifyContent: "space-evenly" }}>
-        {candidate.map((item, index) => (
+        {candidate.map((item: CandidateItemInterface, index) => (
           <Grid sx={{ width: "20rem" }} key={index}>
             <Item>
               <Avatar

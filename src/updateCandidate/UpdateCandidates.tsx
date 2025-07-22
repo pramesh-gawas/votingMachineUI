@@ -4,19 +4,32 @@ import { Button, TextField, Box, Typography } from "@mui/material";
 import { UpdateCandidate } from "../apiIntegration/api";
 import { Toaster } from "../common/Toaster";
 
+interface updateCandidateProps {
+  updateCandidate: any;
+  handleClose: any;
+  candidateID: any;
+  loadCandidate: any;
+}
+
+interface errorCandidate {
+  name?: string;
+  age?: string;
+  party?: string;
+}
+
 export const UpdateCandidates = ({
   updateCandidate,
   handleClose,
   candidateID,
   loadCandidate,
-}) => {
+}: updateCandidateProps) => {
   const [name, setName] = useState(updateCandidate?.name);
   const [age, setAge] = useState(updateCandidate?.age);
   const [party, setParty] = useState(updateCandidate?.party);
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState<errorCandidate>({});
 
   const validate = () => {
-    const newErrors = {};
+    const newErrors: errorCandidate = {};
     if (!name) {
       newErrors.name = "name is required";
     }

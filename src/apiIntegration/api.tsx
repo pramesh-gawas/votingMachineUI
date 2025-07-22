@@ -1,17 +1,25 @@
 import { ApiUrl } from "../apiUrl/ApiUrl";
-export const UserProfile = async (options = {}) => {
+
+interface UserProfileOptions extends RequestInit {
+  headers?: {
+    [key: string]: string;
+  };
+}
+
+export const UserProfile = async (options: UserProfileOptions = {}) => {
   const url = `${ApiUrl}/user/profile`;
   const token_value = localStorage.getItem("token");
-  const headers = {
-    "Content-Type": "Application/json",
-    ...options.headers,
+
+  const headers: { [key: string]: string } = {
+    "Content-Type": "application/json",
+    ...(options.headers || {}),
   };
 
   if (token_value) {
     headers["Authorization"] = `Bearer ${token_value}`;
   }
 
-  const config = {
+  const config: RequestInit = {
     method: "GET",
     ...options,
     headers,
@@ -25,12 +33,16 @@ export const UserProfile = async (options = {}) => {
   }
 };
 
-export const PasswordUpdate = async (obj: any, options = {}) => {
+export const PasswordUpdate = async (
+  obj: any,
+  options: UserProfileOptions = {}
+) => {
   const url = `${ApiUrl}/user/profile/password`;
   const token_value = localStorage.getItem("token");
-  const headers = {
-    "Content-Type": "Application/json",
-    ...options.headers,
+
+  const headers: { [key: string]: string } = {
+    "Content-Type": "application/json",
+    ...(options.headers || {}),
   };
 
   if (token_value) {
@@ -104,13 +116,16 @@ export const UserList = async () => {
   }
 };
 
-export const DeleteUser = async (userID: any, options = {}) => {
+export const DeleteUser = async (
+  userID: any,
+  options: UserProfileOptions = {}
+) => {
   const url = `${ApiUrl}/user/${userID}`;
   const token_value = localStorage.getItem("token");
 
-  const headers = {
-    "Content-Type": "Application/json",
-    ...options.headers,
+  const headers: { [key: string]: string } = {
+    "Content-Type": "application/json",
+    ...(options.headers || {}),
   };
 
   if (token_value) {
@@ -146,10 +161,14 @@ export const AddUser = async (Obj: any) => {
   }
 };
 
-export const UpdateUser = async (userID: any, Obj: any, options = {}) => {
+export const UpdateUser = async (
+  userID: any,
+  Obj: any,
+  options: UserProfileOptions = {}
+) => {
   const url = `${ApiUrl}/user/${userID}`;
   const token_value = localStorage.getItem("token");
-  const headers = {
+  const headers: { [key: string]: string } = {
     ...options.headers,
   };
 
@@ -172,12 +191,16 @@ export const UpdateUser = async (userID: any, Obj: any, options = {}) => {
   }
 };
 
-export const Addcandidate = async (Obj: any, options = {}) => {
+export const Addcandidate = async (
+  Obj: any,
+  options: UserProfileOptions = {}
+) => {
   const url = `${ApiUrl}/candidate`;
   const token_value = localStorage.getItem("token");
-  const headers = {
-    "Content-Type": "Application/json",
-    ...options.headers,
+
+  const headers: { [key: string]: string } = {
+    "Content-Type": "application/json",
+    ...(options.headers || {}),
   };
 
   if (token_value) {
@@ -240,13 +263,14 @@ export const CandidateCount = async () => {
 export const UpdateCandidate = async (
   candidateID: any,
   Obj: any,
-  options = {}
+  options: UserProfileOptions = {}
 ) => {
   const url = `${ApiUrl}/candidate/${candidateID}`;
   const token_value = localStorage.getItem("token");
-  const headers = {
-    "Content-Type": "Application/json",
-    ...options.headers,
+
+  const headers: { [key: string]: string } = {
+    "Content-Type": "application/json",
+    ...(options.headers || {}),
   };
 
   if (token_value) {
@@ -268,13 +292,16 @@ export const UpdateCandidate = async (
   }
 };
 
-export const DeleteCandidate = async (candidateID: any, options = {}) => {
+export const DeleteCandidate = async (
+  candidateID: any,
+  options: UserProfileOptions = {}
+) => {
   const url = `${ApiUrl}/candidate/${candidateID}`;
   const token_value = localStorage.getItem("token");
 
-  const headers = {
-    "Content-Type": "Application/json",
-    ...options.headers,
+  const headers: { [key: string]: string } = {
+    "Content-Type": "application/json",
+    ...(options.headers || {}),
   };
 
   if (token_value) {
@@ -295,13 +322,16 @@ export const DeleteCandidate = async (candidateID: any, options = {}) => {
   }
 };
 
-export const Vote = async (candidateID: any, options = {}) => {
+export const Vote = async (
+  candidateID: any,
+  options: UserProfileOptions = {}
+) => {
   const url = `${ApiUrl}/candidate/vote/${candidateID}`;
   const token_value = localStorage.getItem("token");
 
-  const headers = {
-    "Content-Type": "Application/json",
-    ...options.headers,
+  const headers: { [key: string]: string } = {
+    "Content-Type": "application/json",
+    ...(options.headers || {}),
   };
 
   if (token_value) {

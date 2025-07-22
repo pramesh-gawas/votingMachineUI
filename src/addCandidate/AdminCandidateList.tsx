@@ -5,6 +5,12 @@ import { CandidateList, DeleteCandidate } from "../apiIntegration/api";
 import { useNavigate } from "react-router-dom";
 import { Toaster } from "../common/Toaster";
 
+interface candidateList {
+  _id: string;
+  name: string;
+  party: string;
+}
+
 export const AdminCandidateList = ({
   setUpdateData,
   setHandleUpdateClicked,
@@ -56,7 +62,7 @@ export const AdminCandidateList = ({
       </Typography>
       <Box sx={{ width: "100%", marginBlockStart: "14px" }}>
         <Stack spacing={2}>
-          {candidate?.map((item, index) => (
+          {candidate?.map((item: candidateList, index) => (
             <Box key={index} boxShadow={3}>
               <Item>
                 <Grid>

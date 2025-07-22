@@ -12,10 +12,15 @@ import { PasswordUpdate } from "../apiIntegration/api";
 import { useNavigate } from "react-router-dom";
 import { Toaster } from "../common/Toaster";
 
+interface errorInterface {
+  currentpassword?: string;
+  newpassword?: string;
+}
+
 export const ChangePassword = () => {
-  const [currentpassword, setCurrentPassword] = useState("");
-  const [newpassword, setNewPassword] = useState("");
-  const [errors, setErrors] = useState({});
+  const [currentpassword, setCurrentPassword] = useState<string>("");
+  const [newpassword, setNewPassword] = useState<string>("");
+  const [errors, setErrors] = useState<errorInterface>({});
   const Navigate = useNavigate();
 
   const handleSubmit = async (event: { preventDefault: () => void }) => {
@@ -41,7 +46,10 @@ export const ChangePassword = () => {
   };
 
   const validate = () => {
-    const newErrors = {};
+    const newErrors: errorInterface = {
+      currentpassword: "",
+      newpassword: "",
+    };
     const passwordRegex = /^.{6,}$/;
     if (!currentpassword) {
       newErrors.currentpassword = "currentpassword is required";

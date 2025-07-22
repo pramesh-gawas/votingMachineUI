@@ -7,6 +7,13 @@ import { CandidateList } from "../apiIntegration/api";
 import { CandidateCount } from "../apiIntegration/api";
 import { useEffect, useState } from "react";
 
+interface candidateList {
+  party: string;
+  count: number;
+  name: string;
+  voteCount: string;
+}
+
 export const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: "#fff",
   ...theme.typography.body2,
@@ -31,13 +38,12 @@ export const Home = () => {
   useEffect(() => {
     const loadCandidateList = async () => {
       setLoading(true);
-      // setFetchError('');
       try {
         const candidatelist = await CandidateList();
         setCandidateList(candidatelist?.candidateList);
-      } catch (err) {
-      } finally {
         setLoading(false);
+      } catch (err) {
+        console.log(err);
       }
     };
 
@@ -47,13 +53,12 @@ export const Home = () => {
   useEffect(() => {
     const loadCandidateCount = async () => {
       setLoading(true);
-      // setFetchError('');
       try {
         const candidateCount = await CandidateCount();
         setCandidateCount(candidateCount?.voteRecord);
-      } catch (err) {
-      } finally {
         setLoading(false);
+      } catch (err) {
+        console.log(err);
       }
     };
 
@@ -66,7 +71,7 @@ export const Home = () => {
         <h2>Live Vote Count</h2>
         <Grid container spacing={2} minWidth={"100px"}>
           <>
-            {candidateCount?.map((candidate, index) => (
+            {candidateCount?.map((candidate: candidateList, index) => (
               <Grid
                 size={4}
                 boxShadow={4}
@@ -93,7 +98,7 @@ export const Home = () => {
       >
         <h2>Candidate List</h2>
         <Grid container spacing={3} sx={{ justifyContent: "space-evenly" }}>
-          {candidate.map((item, index) => (
+          {candidate.map((item: candidateList, index) => (
             <Grid sx={{ width: "16rem" }} key={index} boxShadow={3}>
               <Item>
                 <Avatar

@@ -104,10 +104,16 @@ interface LayoutContextType {
   loading: boolean;
 }
 
+interface profileAInterface {
+  photo: string;
+  firstname: string;
+  lastname: string;
+}
+
 export const Admin = () => {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
-  const [profileData, setProfileData] = React.useState({});
+  const [profileData, setProfileData] = React.useState<profileAInterface>();
 
   const [loading, setLoading] = React.useState(true);
   const Navigate = useNavigate();

@@ -1,3 +1,4 @@
+import react from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
@@ -14,6 +15,15 @@ export const style = {
   boxShadow: 24,
   p: 3,
 };
+interface basicModalProps {
+  text: string;
+  icon: any;
+  addOpen: boolean;
+  handleOpen: any;
+  handleClose: any;
+  signUpStyle: any;
+  children: react.ReactNode;
+}
 
 export const BasicModal = ({
   text,
@@ -23,7 +33,7 @@ export const BasicModal = ({
   handleClose,
   signUpStyle,
   children,
-}) => {
+}: basicModalProps) => {
   return (
     <>
       {text && (

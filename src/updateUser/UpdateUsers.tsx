@@ -13,7 +13,31 @@ import { AddUser, UpdateUser } from "../apiIntegration/api";
 import { URl } from "../Cards/Cards";
 import { Toaster } from "../common/Toaster";
 
-export const UpdateUsers = ({ user, title, handleClose, userID, loadUser }) => {
+interface updateUserProps {
+  user?: any;
+  title?: string;
+  handleClose?: any;
+  userID?: string;
+  loadUser?: any;
+}
+interface errorUpdate {
+  firstname?: string;
+  lastname?: string;
+  age?: string;
+  email?: string;
+  address?: string;
+  password?: string;
+  aadharCardNumber?: string;
+  role?: string;
+}
+
+export const UpdateUsers = ({
+  user,
+  title,
+  handleClose,
+  userID,
+  loadUser,
+}: updateUserProps) => {
   const [aadharCardNumber, setAadharCardNumber] = useState(
     user?.aadharCardNumber ?? ""
   );
@@ -23,7 +47,7 @@ export const UpdateUsers = ({ user, title, handleClose, userID, loadUser }) => {
   const [age, setAge] = useState(user?.age ?? "");
   const [address, setAddress] = useState(user?.address ?? "");
   const [password, setPassword] = useState(user?.password ?? "");
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState<errorUpdate>({});
   const [role, setRole] = useState(user?.role ?? "");
   const [avatarSrc, setAvatarSrc] = useState<string | undefined>(
     URl(user?.photo) ?? ""
@@ -44,7 +68,7 @@ export const UpdateUsers = ({ user, title, handleClose, userID, loadUser }) => {
     }
   };
 
-  const updateApi = async (formData) => {
+  const updateApi = async (formData: FormData) => {
     try {
       const { response, message, error } = await UpdateUser(userID, formData);
       if (!response) {
@@ -119,8 +143,9 @@ export const UpdateUsers = ({ user, title, handleClose, userID, loadUser }) => {
   };
 
   const validate = () => {
-    const newErrors = {};
+    const newErrors: errorUpdate = {};
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const aadharRegex = /^\d{12}$/;
     if (!firstname) {
       newErrors.firstname = "firstname is required";
     }
@@ -140,9 +165,9 @@ export const UpdateUsers = ({ user, title, handleClose, userID, loadUser }) => {
     }
     if (!aadharCardNumber) {
       newErrors.aadharCardNumber = "aadharCardNumber is required";
-    } else if (!aadharCardNumber.length == 12) {
+    } else if (!aadharRegex.test(aadharCardNumber)) {
       newErrors.aadharCardNumber =
-        "Please enter a valid 12 digit Aadhar Card Number (digits only).";
+        "Please enter a valid 12-digit Aadhar Card Number (digits only).";
     }
     if (!password) {
       newErrors.password = "Password is required";

@@ -24,16 +24,36 @@ const Item = styled(Paper)(({ theme }) => ({
   }),
 }));
 
+interface errorInterface {
+  fname?: string;
+  lname?: string;
+  contact?: string;
+  email?: string;
+  photo?: string;
+  age?: string;
+}
+
+interface profileDataInterface {
+  firstname?: string;
+  lastname?: string;
+  age?: number;
+  contact?: string;
+  email?: string;
+  photo?: string;
+}
+
 export const Profile = () => {
-  const [profileData, setProfileData] = React.useState({});
-  const [avatarSrc, setAvatarSrc] = React.useState<string | undefined>();
+  const [profileData, setProfileData] = React.useState<profileDataInterface>(
+    {}
+  );
+  const [avatarSrc, setAvatarSrc] = React.useState<string>();
   const [formData, setFormData] = React.useState({
     fname: "",
     lname: "",
     email: "",
     contact: "",
   });
-  const [errors, setErrors] = React.useState({});
+  const [errors, setErrors] = React.useState<errorInterface>({});
   const [loading, setLoading] = React.useState(true);
 
   const Navigate = useNavigate();
@@ -43,7 +63,7 @@ export const Profile = () => {
       try {
         const { error, user } = await UserProfile();
         if (!user) {
-          Toaster(err, "error");
+          Toaster(error, "error");
           if (error === "invalid token") {
             localStorage.clear();
             Navigate("/user/login");
@@ -51,14 +71,13 @@ export const Profile = () => {
           }
         }
         setProfileData(user);
-      } catch (err) {
-      } finally {
         setLoading(false);
+      } catch (err) {
+        console.log(err);
       }
     };
-
     loadUserProfile();
-  }, []);
+  }, [avatarSrc]);
 
   const handleAvatarChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -79,7 +98,7 @@ export const Profile = () => {
   const validation = () => {
     const indianMobileRegex = /^[6-9]\d{9}$/;
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    let newError = {};
+    let newError: errorInterface = {};
     let isValid = true;
     if (!formData.fname.trim() || "") {
       newError.fname = "First name is Required";

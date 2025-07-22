@@ -1,6 +1,5 @@
 import { Grid, Box, Skeleton } from "@mui/material";
 import { styled } from "@mui/material/styles";
-import { CardSkeleton } from "./CardSkeleton";
 const Item = styled(Box)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
   border: "1px solid #e0e0e0",

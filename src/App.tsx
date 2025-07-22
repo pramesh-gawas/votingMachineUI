@@ -1,4 +1,3 @@
-import "./App.css";
 import { Router } from "./routers/Router";
 import { Navbar } from "./navbar/Navbar";
 import { Admin } from "./admin/Admin";
@@ -8,7 +7,7 @@ function App() {
   const role = localStorage.getItem("role");
   return (
     <>
-      {<Navbar auth={auth} role={role}></Navbar>}
+      {!(role === "admin") && <Navbar auth={auth} role={role}></Navbar>}
       {auth && role === "admin" && <Admin></Admin>}
       <Router auth={auth} role={role}></Router>
       <ToastContainer />

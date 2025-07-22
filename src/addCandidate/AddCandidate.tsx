@@ -5,17 +5,35 @@ import { useNavigate } from "react-router-dom";
 import { Addcandidate } from "../apiIntegration/api";
 import { Toaster } from "../common/Toaster";
 
-export const AddCandidate = ({ loadCandidate, handleClose }) => {
-  const [name, setName] = useState("");
-  const [age, setAge] = useState(0);
-  const [party, setParty] = useState("");
-  const [errors, setErrors] = useState({});
+// interface addcandidate {
+//   name: string;
+//   age: number;
+//   praty: string;
+// }
 
-  const [loading, setLoading] = useState(true);
+interface addcandidateerror {
+  name?: string;
+  age?: string;
+  party?: string;
+}
+
+interface addCandidateProps {
+  loadCandidate: any;
+  handleClose: any;
+}
+
+export const AddCandidate = ({
+  loadCandidate,
+  handleClose,
+}: addCandidateProps) => {
+  const [name, setName] = useState<string>();
+  const [age, setAge] = useState<string>();
+  const [party, setParty] = useState<string>("");
+  const [errors, setErrors] = useState<addcandidateerror>({});
   const Navigate = useNavigate();
 
   const validate = () => {
-    const newErrors = {};
+    const newErrors: addcandidateerror = {};
     if (!name) {
       newErrors.name = "name is required";
     }
@@ -48,9 +66,6 @@ export const AddCandidate = ({ loadCandidate, handleClose }) => {
         }
       } else {
         Toaster(message, "success");
-        setName("");
-        setAge(0);
-        setParty("");
         handleClose();
         loadCandidate();
       }

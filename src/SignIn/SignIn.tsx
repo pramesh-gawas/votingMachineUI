@@ -30,7 +30,7 @@ interface formDataError {
 
 export const SignIn = () => {
   const [aadharCardNumber, setAadharCardNumber] = useState<formDataInterface>();
-  const [password, setPassword] = useState<formDataInterface>();
+  const [password, setPassword] = useState<formDataInterface>("");
   const [errors, setErrors] = useState<formDataError>({});
   const Navigate = useNavigate();
 

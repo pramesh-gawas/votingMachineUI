@@ -6,7 +6,6 @@ import { useNavigate } from "react-router-dom";
 import SendIcon from "@mui/icons-material/Send";
 import { AddCandidate } from "../addCandidate/AddCandidate";
 import { Box, Typography } from "@mui/material";
-import { signUpStyle } from "../User/User";
 import { Toaster } from "../common/Toaster";
 
 export const Candidate = () => {

@@ -4,9 +4,14 @@ import { ResetPasswordApi } from "../apiIntegration/api";
 import { useNavigate, useParams } from "react-router-dom";
 import { Toaster } from "../common/Toaster";
 
+interface form {
+  email?: string;
+  password?: string;
+}
+
 export const ResetPassword = () => {
   const [password, setPassword] = useState("");
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState<form>({});
   const Navigate = useNavigate();
   const { userID, token } = useParams();
 
@@ -34,7 +39,7 @@ export const ResetPassword = () => {
   };
 
   const validate = () => {
-    const newErrors = {};
+    const newErrors: form = {};
     if (!password) {
       newErrors.email = "password is required";
     } else if (password.length < 6) {
