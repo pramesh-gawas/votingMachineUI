@@ -11,13 +11,14 @@ import { UpdateCandidates } from "../updateCandidate/UpdateCandidates";
 import { UpdateUsers } from "../updateUser/UpdateUsers";
 import { CardSkeleton } from "../skeleton/CardSkeleton";
 import type { Key } from "react";
+import { ApiUrl } from "../apiUrl/ApiUrl";
 
 export const URl = (path: string) => {
   if (!path) {
     return "https://placehold.co/140x140/cccccc/000000?text=No+Image";
   }
   const normalizedPath = path.replace(/\\/g, "/");
-  return `${process.env.ApiUrl}/${normalizedPath}`;
+  return `${ApiUrl}/${normalizedPath}`;
 };
 
 interface cardProps {

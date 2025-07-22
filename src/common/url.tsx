@@ -1,3 +1,5 @@
+import { ApiUrl } from "../apiUrl/ApiUrl";
+
 export const getImageUrl = (imagePath: any) => {
-  return `${process.env.ApiUrl}/${imagePath}`;
+  return `${ApiUrl}/${imagePath}`;
 };
