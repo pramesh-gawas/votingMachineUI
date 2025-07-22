@@ -1,5 +1,3 @@
-import { ApiUrl } from "../apiUrl/ApiUrl";
-
 interface UserProfileOptions extends RequestInit {
   headers?: {
     [key: string]: string;
@@ -7,7 +5,7 @@ interface UserProfileOptions extends RequestInit {
 }
 
 export const UserProfile = async (options: UserProfileOptions = {}) => {
-  const url = `${ApiUrl}/user/profile`;
+  const url = `${process.env.ApiUrl}/user/profile`;
   const token_value = localStorage.getItem("token");
 
   const headers: { [key: string]: string } = {
@@ -37,7 +35,7 @@ export const PasswordUpdate = async (
   obj: any,
   options: UserProfileOptions = {}
 ) => {
-  const url = `${ApiUrl}/user/profile/password`;
+  const url = `${process.env.ApiUrl}/user/profile/password`;
   const token_value = localStorage.getItem("token");
 
   const headers: { [key: string]: string } = {
@@ -65,7 +63,7 @@ export const PasswordUpdate = async (
 };
 
 export const SignUpApi = async (Obj: any) => {
-  const url = `${ApiUrl}/user/signup`;
+  const url = `${process.env.ApiUrl}/user/signup`;
   const options = {
     method: "POST",
     body: Obj,
@@ -80,7 +78,7 @@ export const SignUpApi = async (Obj: any) => {
 };
 
 export const SignInApi = async (Obj: any) => {
-  const url = `${ApiUrl}/user/login`;
+  const url = `${process.env.ApiUrl}/user/login`;
   const options = {
     method: "POST",
     headers: {
@@ -98,7 +96,7 @@ export const SignInApi = async (Obj: any) => {
 };
 
 export const UserList = async () => {
-  const url = `${ApiUrl}/user/userList`;
+  const url = `${process.env.ApiUrl}/user/userList`;
 
   const options = {
     method: "GET",
@@ -120,7 +118,7 @@ export const DeleteUser = async (
   userID: any,
   options: UserProfileOptions = {}
 ) => {
-  const url = `${ApiUrl}/user/${userID}`;
+  const url = `${process.env.ApiUrl}/user/${userID}`;
   const token_value = localStorage.getItem("token");
 
   const headers: { [key: string]: string } = {
@@ -147,7 +145,7 @@ export const DeleteUser = async (
 };
 
 export const AddUser = async (Obj: any) => {
-  const url = `${ApiUrl}/user`;
+  const url = `${process.env.ApiUrl}/user`;
   const options = {
     method: "POST",
     body: Obj,
@@ -166,7 +164,7 @@ export const UpdateUser = async (
   Obj: any,
   options: UserProfileOptions = {}
 ) => {
-  const url = `${ApiUrl}/user/${userID}`;
+  const url = `${process.env.ApiUrl}/user/${userID}`;
   const token_value = localStorage.getItem("token");
   const headers: { [key: string]: string } = {
     ...options.headers,
@@ -195,7 +193,7 @@ export const Addcandidate = async (
   Obj: any,
   options: UserProfileOptions = {}
 ) => {
-  const url = `${ApiUrl}/candidate`;
+  const url = `${process.env.ApiUrl}/candidate`;
   const token_value = localStorage.getItem("token");
 
   const headers: { [key: string]: string } = {
@@ -223,7 +221,7 @@ export const Addcandidate = async (
 };
 
 export const CandidateList = async () => {
-  const url = `${ApiUrl}/candidate/candidateList`;
+  const url = `${process.env.ApiUrl}/candidate/candidateList`;
 
   const options = {
     method: "GET",
@@ -242,7 +240,7 @@ export const CandidateList = async () => {
 };
 
 export const CandidateCount = async () => {
-  const url = `${ApiUrl}/candidate/vote/count`;
+  const url = `${process.env.ApiUrl}/candidate/vote/count`;
 
   const options = {
     method: "GET",
@@ -265,7 +263,7 @@ export const UpdateCandidate = async (
   Obj: any,
   options: UserProfileOptions = {}
 ) => {
-  const url = `${ApiUrl}/candidate/${candidateID}`;
+  const url = `${process.env.ApiUrl}/candidate/${candidateID}`;
   const token_value = localStorage.getItem("token");
 
   const headers: { [key: string]: string } = {
@@ -296,7 +294,7 @@ export const DeleteCandidate = async (
   candidateID: any,
   options: UserProfileOptions = {}
 ) => {
-  const url = `${ApiUrl}/candidate/${candidateID}`;
+  const url = `${process.env.ApiUrl}/candidate/${candidateID}`;
   const token_value = localStorage.getItem("token");
 
   const headers: { [key: string]: string } = {
@@ -326,7 +324,7 @@ export const Vote = async (
   candidateID: any,
   options: UserProfileOptions = {}
 ) => {
-  const url = `${ApiUrl}/candidate/vote/${candidateID}`;
+  const url = `${process.env.ApiUrl}/candidate/vote/${candidateID}`;
   const token_value = localStorage.getItem("token");
 
   const headers: { [key: string]: string } = {
@@ -353,7 +351,7 @@ export const Vote = async (
 };
 
 export const ForgotPasswordApi = async (Obj: any) => {
-  const url = `${ApiUrl}/user/forgotpassword`;
+  const url = `${process.env.ApiUrl}/user/forgotpassword`;
   const options = {
     method: "POST",
     body: Obj,
@@ -372,7 +370,7 @@ export const ResetPasswordApi = async (
   token: string | undefined,
   Obj: any
 ) => {
-  const url = `${ApiUrl}/user/reset-password/${userID}/${token}`;
+  const url = `${process.env.ApiUrl}/user/reset-password/${userID}/${token}`;
   const options = {
     "Content-Type": "application/json",
     method: "PUT",
