@@ -14,16 +14,39 @@ import { SignUpApi } from "../apiIntegration/api";
 import { useNavigate, Link } from "react-router-dom";
 import { Toaster } from "../common/Toaster";
 
+// interface formDataInterface {
+//   trim(): string;
+//   length: number;
+//   email?: string;
+//   aadharCardNumber?: string;
+//   password?: string;
+//   role?: string;
+//   firstname?: string;
+//   age?: number;
+//   address?: string;
+// }
+
+interface formDataError {
+  email?: string;
+  aadharCardNumber?: string;
+  password?: string;
+  role?: string;
+  firstname?: string;
+  age?: number;
+  address?: string;
+  lastname?: string;
+}
+
 export const SignUp = () => {
-  const [aadharCardNumber, setAadharCardNumber] = useState("");
-  const [password, setPassword] = useState("");
-  const [firstname, setFirstName] = useState("");
-  const [lastname, setLastName] = useState("");
-  const [email, setEmail] = useState("");
+  const [aadharCardNumber, setAadharCardNumber] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [firstname, setFirstName] = useState<string>("");
+  const [lastname, setLastName] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
   const [age, setAge] = useState("");
-  const [address, setAddress] = useState("");
-  const [errors, setErrors] = useState({});
-  const [role, setRole] = useState();
+  const [address, setAddress] = useState<string>("");
+  const [errors, setErrors] = useState<formDataError>({});
+  const [role, setRole] = useState<string>();
   const [avatarSrc, setAvatarSrc] = useState<string | undefined>();
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const Navigate = useNavigate();
@@ -78,7 +101,7 @@ export const SignUp = () => {
   };
 
   const validate = () => {
-    const newErrors = {};
+    const newErrors: formDataError = {};
     const aadharRegex = /^\d{12}$/;
     if (!firstname) {
       newErrors.firstname = "firstname is required";

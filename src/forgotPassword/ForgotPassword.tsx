@@ -3,9 +3,13 @@ import { Button, TextField, Box, Typography, Container } from "@mui/material";
 import { ForgotPasswordApi } from "../apiIntegration/api";
 import { Toaster } from "../common/Toaster";
 
+interface form {
+  email?: string;
+}
+
 export const ForgotPassword = () => {
-  const [email, setEmail] = useState("");
-  const [errors, setErrors] = useState({});
+  const [email, setEmail] = useState<string>("");
+  const [errors, setErrors] = useState<form>({});
 
   const handleSubmit = async (event: { preventDefault: () => void }) => {
     event.preventDefault();
@@ -30,7 +34,7 @@ export const ForgotPassword = () => {
   };
 
   const validate = () => {
-    const newErrors = {};
+    const newErrors: form = {};
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!email) {
       newErrors.email = "email is required";

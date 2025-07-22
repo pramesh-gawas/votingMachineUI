@@ -17,12 +17,16 @@ import { useNavigate } from "react-router-dom";
 import { UserProfile } from "../apiIntegration/api";
 import { getImageUrl } from "../common/url";
 import { Toaster } from "../common/Toaster";
+interface profile {
+  photo: string;
+  firstname: string;
+}
 
 export const Navbar = ({ auth, role }: any) => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
-  const [profileData, setProfileData] = React.useState({});
+  const [profileData, setProfileData] = React.useState<profile>();
 
   const [loading, setLoading] = React.useState(true);
   const Navigate = useNavigate();
@@ -41,6 +45,7 @@ export const Navbar = ({ auth, role }: any) => {
           }
         }
         setProfileData(user);
+        setLoading(false);
       } catch (err: any) {
         Toaster(err, "error");
       }

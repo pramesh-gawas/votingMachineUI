@@ -13,10 +13,25 @@ import { SignInApi } from "../apiIntegration/api";
 import { useNavigate, Link } from "react-router-dom";
 import { Toaster } from "../common/Toaster";
 
+interface formDataInterface {
+  trim(): string;
+  length: number;
+  email?: string;
+  aadharCardNumber?: number;
+  password?: string;
+}
+
+interface formDataError {
+  email?: string;
+  aadharCardNumber?: string;
+  password?: string;
+  errors?: string;
+}
+
 export const SignIn = () => {
-  const [aadharCardNumber, setAadharCardNumber] = useState("");
-  const [password, setPassword] = useState("");
-  const [errors, setErrors] = useState({});
+  const [aadharCardNumber, setAadharCardNumber] = useState<formDataInterface>();
+  const [password, setPassword] = useState<formDataInterface>();
+  const [errors, setErrors] = useState<formDataError>({});
   const Navigate = useNavigate();
 
   const handleSubmit = async (event: { preventDefault: () => void }) => {
@@ -45,7 +60,7 @@ export const SignIn = () => {
   };
 
   const validate = () => {
-    const newErrors = {};
+    const newErrors: formDataError = {};
     const aadharRegex = /^\d{12}$/;
     if (!aadharCardNumber) {
       newErrors.aadharCardNumber = "aadharCardNumber is required";
@@ -120,14 +135,10 @@ export const SignIn = () => {
           </Button>
           <Grid container sx={{ justifyContent: "flex-end" }}>
             <Grid size={7}>
-              <Link to="/user/signup" variant="body2">
-                {"Don't have an account? Sign Up"}
-              </Link>
+              <Link to="/user/signup">{"Don't have an account? Sign Up"}</Link>
             </Grid>
             <Grid size={5} sx={{ textAlign: "right" }}>
-              <Link to="/user/forgotpassword" variant="body2">
-                Forgot Password
-              </Link>
+              <Link to="/user/forgotpassword">Forgot Password</Link>
             </Grid>
           </Grid>
         </Box>
