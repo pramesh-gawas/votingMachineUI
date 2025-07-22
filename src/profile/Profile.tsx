@@ -24,14 +24,14 @@ const Item = styled(Paper)(({ theme }) => ({
   }),
 }));
 
-interface errorInterface {
-  fname?: string;
-  lname?: string;
-  contact?: string;
-  email?: string;
-  photo?: string;
-  age?: string;
-}
+// interface errorInterface {
+//   fname?: string;
+//   lname?: string;
+//   contact?: string;
+//   email?: string;
+//   photo?: string;
+//   age?: string;
+// }
 
 interface profileDataInterface {
   firstname?: string;
@@ -46,20 +46,20 @@ export const Profile = () => {
   const [profileData, setProfileData] = React.useState<profileDataInterface>(
     {}
   );
-  const [avatarSrc, setAvatarSrc] = React.useState<string>();
+  // const [avatarSrc, setAvatarSrc] = React.useState<string>();
   const [formData, setFormData] = React.useState({
     fname: "",
     lname: "",
     email: "",
     contact: "",
   });
-  const [errors, setErrors] = React.useState<errorInterface>({});
-  const [loading, setLoading] = React.useState(true);
+  // const [errors, setErrors] = React.useState<errorInterface>({});
+  // const [loading, setLoading] = React.useState(true);
 
   const Navigate = useNavigate();
   useEffect(() => {
     const loadUserProfile = async () => {
-      setLoading(true);
+      // setLoading(true);
       try {
         const { error, user } = await UserProfile();
         if (!user) {
@@ -71,73 +71,73 @@ export const Profile = () => {
           }
         }
         setProfileData(user);
-        setLoading(false);
+        // setLoading(false);
       } catch (err) {
         console.log(err);
       }
     };
     loadUserProfile();
-  }, [avatarSrc]);
+  }, []);
 
-  const handleAvatarChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        setAvatarSrc(reader.result as string);
-      };
+  // const handleAvatarChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   const file = event.target.files?.[0];
+  //   if (file) {
+  //     const reader = new FileReader();
+  //     reader.onload = () => {
+  //       setAvatarSrc(reader.result as string);
+  //     };
 
-      reader.readAsDataURL(file);
-    }
-  };
+  //     reader.readAsDataURL(file);
+  //   }
+  // };
 
   const handleReset = () => {
     setFormData({ fname: "", lname: "", email: "", contact: "" });
   };
 
-  const validation = () => {
-    const indianMobileRegex = /^[6-9]\d{9}$/;
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    let newError: errorInterface = {};
-    let isValid = true;
-    if (!formData.fname.trim() || "") {
-      newError.fname = "First name is Required";
-      isValid = false;
-    }
+  // const validation = () => {
+  //   const indianMobileRegex = /^[6-9]\d{9}$/;
+  //   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  //   let newError: errorInterface = {};
+  //   let isValid = true;
+  //   if (!formData.fname.trim() || "") {
+  //     newError.fname = "First name is Required";
+  //     isValid = false;
+  //   }
 
-    if (!formData.lname.trim() || "") {
-      newError.lname = "Last name is Required";
-      isValid = false;
-    }
-    if (!formData.contact.trim() || "") {
-      newError.contact = "Contact number Required";
-      isValid = false;
-    } else if (!indianMobileRegex.test(formData.contact.trim())) {
-      newError.contact = "Please Enter valid phone number";
-      isValid = false;
-    }
+  //   if (!formData.lname.trim() || "") {
+  //     newError.lname = "Last name is Required";
+  //     isValid = false;
+  //   }
+  //   if (!formData.contact.trim() || "") {
+  //     newError.contact = "Contact number Required";
+  //     isValid = false;
+  //   } else if (!indianMobileRegex.test(formData.contact.trim())) {
+  //     newError.contact = "Please Enter valid phone number";
+  //     isValid = false;
+  //   }
 
-    if (!formData.email || "") {
-      newError.email = "Email Address Required";
-      isValid = false;
-    } else if (!emailRegex.test(formData.email.trim())) {
-      newError.email = "Please Enter Valid email Address";
-      isValid = false;
-    }
-    setErrors(newError);
-    return isValid;
-  };
+  //   if (!formData.email || "") {
+  //     newError.email = "Email Address Required";
+  //     isValid = false;
+  //   } else if (!emailRegex.test(formData.email.trim())) {
+  //     newError.email = "Please Enter Valid email Address";
+  //     isValid = false;
+  //   }
+  //   setErrors(newError);
+  //   return isValid;
+  // };
 
-  const handleSubmit = async (e: any) => {
-    e.preventDefault();
-    if (validation()) {
-      console.log("data validated");
-      const data = await UserProfile();
-      console.log(data);
-    } else {
-      console.error("validation failed");
-    }
-  };
+  // const handleSubmit = async (e: any) => {
+  //   e.preventDefault();
+  //   if (validation()) {
+  //     console.log("data validated");
+  //     const data = await UserProfile();
+  //     console.log(data);
+  //   } else {
+  //     console.error("validation failed");
+  //   }
+  // };
 
   const handleChange = (e: any) => {
     const { name, value } = e.target;
@@ -202,7 +202,7 @@ export const Profile = () => {
                 name="firstname"
               />
             </Item>
-            {errors.fname}
+            {/* {errors.fname} */}
           </Grid>
           <Grid size={6}>
             <Item>
@@ -220,7 +220,7 @@ export const Profile = () => {
                 name="lname"
               />
             </Item>
-            {errors.lname}
+            {/* {errors.lname} */}
           </Grid>
           <Grid size={6}>
             <Item>
@@ -238,7 +238,7 @@ export const Profile = () => {
                 name="email"
               />
             </Item>
-            {errors.email}
+            {/* {errors.email} */}
           </Grid>
           <Grid size={6}>
             <Item>
@@ -256,7 +256,7 @@ export const Profile = () => {
                 name="contact"
               />
             </Item>
-            {errors.age}
+            {/* {errors.age} */}
           </Grid>
 
           <Grid>

@@ -33,15 +33,15 @@ export const Item = styled(Paper)(({ theme }) => ({
 export const Home = () => {
   const [candidate, setCandidateList] = useState([]);
   const [candidateCount, setCandidateCount] = useState([]);
-  const [loading, setLoading] = useState(true);
+  // const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const loadCandidateList = async () => {
-      setLoading(true);
+      // setLoading(true);
       try {
         const candidatelist = await CandidateList();
         setCandidateList(candidatelist?.candidateList);
-        setLoading(false);
+        // setLoading(false);
       } catch (err) {
         console.log(err);
       }
@@ -52,11 +52,11 @@ export const Home = () => {
 
   useEffect(() => {
     const loadCandidateCount = async () => {
-      setLoading(true);
+      // setLoading(true);
       try {
         const candidateCount = await CandidateCount();
         setCandidateCount(candidateCount?.voteRecord);
-        setLoading(false);
+        // setLoading(false);
       } catch (err) {
         console.log(err);
       }

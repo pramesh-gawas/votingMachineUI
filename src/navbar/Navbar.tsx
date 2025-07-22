@@ -28,12 +28,12 @@ export const Navbar = ({ auth, role }: any) => {
 
   const [profileData, setProfileData] = React.useState<profile>();
 
-  const [loading, setLoading] = React.useState(true);
+  // const [loading, setLoading] = React.useState(true);
   const Navigate = useNavigate();
 
   React.useEffect(() => {
     const loadUserProfile = async () => {
-      setLoading(true);
+      // setLoading(true);
       try {
         const { error, user } = await UserProfile();
         if (!user) {
@@ -45,7 +45,7 @@ export const Navbar = ({ auth, role }: any) => {
           }
         }
         setProfileData(user);
-        setLoading(false);
+        // setLoading(false);
       } catch (err: any) {
         Toaster(err, "error");
       }
