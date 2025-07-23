@@ -170,7 +170,6 @@ export const UpdateUser = async (
   const token_value = localStorage.getItem("token");
 
   const headers: { [key: string]: string } = {
-    "Content-Type": "application/json",
     ...(options.headers || {}),
   };
 

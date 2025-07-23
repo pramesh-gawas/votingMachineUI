@@ -14,7 +14,6 @@ export const ResetPassword = () => {
   const [errors, setErrors] = useState<form>({});
   const Navigate = useNavigate();
   const { userID, token } = useParams();
-  console.log(userID, token);
   const handleSubmit = async (event: { preventDefault: () => void }) => {
     event.preventDefault();
     const formData = new FormData();
