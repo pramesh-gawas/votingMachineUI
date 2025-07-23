@@ -52,7 +52,7 @@ export const Navbar = ({ auth, role }: any) => {
     };
 
     loadUserProfile();
-  }, [profileData?.photo]);
+  }, []);
 
   const authPages = React.useMemo(() => {
     const pages = [

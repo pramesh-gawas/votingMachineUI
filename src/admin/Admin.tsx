@@ -146,7 +146,7 @@ export const Admin = () => {
     };
 
     loadUserProfile();
-  }, [profileData?.photo]);
+  }, []);
 
   const naviagte = useNavigate();
   const theme = useTheme();

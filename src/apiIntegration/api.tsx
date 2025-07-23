@@ -371,7 +371,7 @@ export const ForgotPasswordApi = async (Obj: any) => {
 
 export const ResetPasswordApi = async (
   userID: string | undefined,
-  token: string | undefined,
+  token: any | undefined,
   Obj: any
 ) => {
   const url = `${API_BASE_URL}/user/reset-password/${userID}/${token}`;
