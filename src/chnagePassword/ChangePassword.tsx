@@ -36,7 +36,7 @@ export const ChangePassword = () => {
           Navigate("/user/login");
           window.location.reload();
         }
-      } else if (message) {
+      } else {
         Toaster(message, "success");
         Navigate("/user/profile");
       }

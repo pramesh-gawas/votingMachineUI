@@ -6,6 +6,7 @@ import Avatar from "@mui/material/Avatar";
 import { CandidateList } from "../apiIntegration/api";
 import { CandidateCount } from "../apiIntegration/api";
 import { useEffect, useState } from "react";
+import { DashboardSkeleton } from "../skeleton/DashboardSkeleton";
 
 interface candidateList {
   party: string;
@@ -33,15 +34,15 @@ export const Item = styled(Paper)(({ theme }) => ({
 export const Home = () => {
   const [candidate, setCandidateList] = useState([]);
   const [candidateCount, setCandidateCount] = useState([]);
-  // const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const loadCandidateList = async () => {
-      // setLoading(true);
+      setLoading(true);
       try {
         const candidatelist = await CandidateList();
         setCandidateList(candidatelist?.candidateList);
-        // setLoading(false);
+        setLoading(false);
       } catch (err) {
         console.log(err);
       }
@@ -52,11 +53,11 @@ export const Home = () => {
 
   useEffect(() => {
     const loadCandidateCount = async () => {
-      // setLoading(true);
+      setLoading(true);
       try {
         const candidateCount = await CandidateCount();
         setCandidateCount(candidateCount?.voteRecord);
-        // setLoading(false);
+        setLoading(false);
       } catch (err) {
         console.log(err);
       }
@@ -66,71 +67,77 @@ export const Home = () => {
   }, []);
 
   return (
-    <>
-      <Box sx={{ width: "100%" }}>
-        <h2>Live Vote Count</h2>
-        <Grid container spacing={2} minWidth={"100px"}>
-          <>
-            {candidateCount?.map((candidate: candidateList, index) => (
-              <Grid
-                size={4}
-                boxShadow={4}
-                padding={1}
-                key={index}
-                sx={{ overflow: "auto" }}
-              >
-                <h2>
-                  Party Name: <b>{candidate.party}</b>
-                </h2>
-                <h2>
-                  Vote Count: <b>{candidate.count}</b>
-                </h2>
-              </Grid>
-            ))}
-          </>
-        </Grid>
-      </Box>
-      <Box
-        sx={{
-          width: "100%",
-          marginBlockStart: "30px",
-        }}
-      >
-        <h2>Candidate List</h2>
-        <Grid container spacing={3} sx={{ justifyContent: "space-evenly" }}>
-          {candidate.map((item: candidateList, index) => (
-            <Grid sx={{ width: "16rem" }} key={index} boxShadow={3}>
-              <Item>
-                <Avatar
-                  sx={{
-                    bgcolor: "#1976d2",
-                    height: "150px",
-                    width: "auto",
-                  }}
-                  variant="rounded"
-                ></Avatar>
-
-                <Grid
-                  sx={{
-                    height: "150px",
-                    width: "150px",
-                  }}
-                >
-                  <h3>
-                    CandiateName:<b>{item.name}</b>
-                  </h3>
-                  <h3>
-                    PartyName:<b>{item.party}</b>
-                  </h3>
-                  <p>
-                    Vote Count:<b>{item.voteCount}</b>
-                  </p>
-                </Grid>
-              </Item>
+    <Box>
+      {loading ? (
+        <DashboardSkeleton />
+      ) : (
+        <>
+          <Box sx={{ width: "100%" }}>
+            <h2>Live Vote Count</h2>
+            <Grid container spacing={2} minWidth={"100px"}>
+              <>
+                {candidateCount?.map((candidate: candidateList, index) => (
+                  <Grid
+                    size={4}
+                    boxShadow={4}
+                    padding={1}
+                    key={index}
+                    sx={{ overflow: "auto" }}
+                  >
+                    <h2>
+                      Party Name: <b>{candidate.party}</b>
+                    </h2>
+                    <h2>
+                      Vote Count: <b>{candidate.count}</b>
+                    </h2>
+                  </Grid>
+                ))}
+              </>
             </Grid>
-          ))}
-        </Grid>
-      </Box>
-    </>
+          </Box>
+          <Box
+            sx={{
+              width: "100%",
+              marginBlockStart: "30px",
+            }}
+          >
+            <h2>Candidate List</h2>
+            <Grid container spacing={3} sx={{ justifyContent: "space-evenly" }}>
+              {candidate?.map((item: candidateList, index) => (
+                <Grid sx={{ width: "16rem" }} key={index} boxShadow={3}>
+                  <Item>
+                    <Avatar
+                      sx={{
+                        bgcolor: "#1976d2",
+                        height: "150px",
+                        width: "auto",
+                      }}
+                      variant="rounded"
+                    ></Avatar>
+
+                    <Grid
+                      sx={{
+                        height: "150px",
+                        width: "150px",
+                      }}
+                    >
+                      <h3>
+                        CandiateName:<b>{item.name}</b>
+                      </h3>
+                      <h3>
+                        PartyName:<b>{item.party}</b>
+                      </h3>
+                      <p>
+                        Vote Count:<b>{item.voteCount}</b>
+                      </p>
+                    </Grid>
+                  </Item>
+                </Grid>
+              ))}
+            </Grid>
+          </Box>
+        </>
+      )}
+    </Box>
   );
 };

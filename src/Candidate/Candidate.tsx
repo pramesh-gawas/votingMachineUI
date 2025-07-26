@@ -10,7 +10,7 @@ import { Toaster } from "../common/Toaster";
 
 export const Candidate = () => {
   const [loading, setLoading] = useState(true);
-  const [candidate, setCandidate] = useState();
+  const [candidate, setCandidate] = useState([]);
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -65,7 +65,7 @@ export const Candidate = () => {
   const loadCandidate = async () => {
     setLoading(true);
     try {
-      const { error, candidateList, message } = await CandidateList();
+      const { error, candidateList } = await CandidateList();
       if (!candidateList) {
         if (error === "invalid token") {
           Toaster(error, "error");
@@ -76,7 +76,7 @@ export const Candidate = () => {
       }
       setCandidate(candidateList);
       setLoading(false);
-      Toaster(message, "success");
+      // Toaster(message, "success");
     } catch (err: any) {
       Toaster(err, "error");
     }

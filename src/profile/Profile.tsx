@@ -1,28 +1,16 @@
 import * as React from "react";
 import Avatar from "@mui/material/Avatar";
 import ButtonBase from "@mui/material/ButtonBase";
-import { styled } from "@mui/material/styles";
-import Paper from "@mui/material/Paper";
+
 import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
 import { UserProfile } from "../apiIntegration/api";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { getImageUrl } from "../common/url";
-import { Box } from "@mui/material";
+import { Box, TextField } from "@mui/material";
 import { Toaster } from "../common/Toaster";
-
-const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: "#fff",
-  ...theme.typography.body2,
-  padding: theme.spacing(1.3),
-  textAlign: "center",
-  border: "none",
-  color: (theme.vars ?? theme).palette.text.secondary,
-  ...theme.applyStyles("dark", {
-    backgroundColor: "#1A2027",
-  }),
-}));
+import { ProfileSkeleton } from "../skeleton/ProfileSkeleton";
 
 // interface errorInterface {
 //   fname?: string;
@@ -43,23 +31,21 @@ interface profileDataInterface {
 }
 
 export const Profile = () => {
-  const [profileData, setProfileData] = React.useState<profileDataInterface>(
-    {}
-  );
+  const [profileData, setProfileData] = React.useState<profileDataInterface>();
   // const [avatarSrc, setAvatarSrc] = React.useState<string>();
-  const [formData, setFormData] = React.useState({
-    fname: "",
-    lname: "",
-    email: "",
-    contact: "",
-  });
+  // const [formData, setFormData] = React.useState({
+  //   fname: "",
+  //   lname: "",
+  //   email: "",
+  //   contact: "",
+  // });
   // const [errors, setErrors] = React.useState<errorInterface>({});
-  // const [loading, setLoading] = React.useState(true);
+  const [loading, setLoading] = React.useState(true);
 
   const Navigate = useNavigate();
   useEffect(() => {
     const loadUserProfile = async () => {
-      // setLoading(true);
+      setLoading(true);
       try {
         const { error, user } = await UserProfile();
         if (!user) {
@@ -71,7 +57,7 @@ export const Profile = () => {
           }
         }
         setProfileData(user);
-        // setLoading(false);
+        setLoading(false);
       } catch (err) {
         console.log(err);
       }
@@ -91,9 +77,9 @@ export const Profile = () => {
   //   }
   // };
 
-  const handleReset = () => {
-    setFormData({ fname: "", lname: "", email: "", contact: "" });
-  };
+  // const handleReset = () => {
+  //   setFormData({ fname: "", lname: "", email: "", contact: "" });
+  // };
 
   // const validation = () => {
   //   const indianMobileRegex = /^[6-9]\d{9}$/;
@@ -139,144 +125,125 @@ export const Profile = () => {
   //   }
   // };
 
-  const handleChange = (e: any) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+  // const handleChange = (e: any) => {
+  //   const { name, value } = e.target;
+  //   setFormData({ ...formData, [name]: value });
+  // };
+  const fieldDisplayNames: { [key: string]: string } = {
+    firstname: "First Name",
+    lastname: "Last Name",
+    email: "Email Address",
+    age: "Age",
   };
 
+  const fieldsToExclude = [
+    "photo",
+    "_id",
+    "password",
+    "createdAt",
+    "updatedAt",
+    "__v",
+  ];
+
   return (
-    <Box padding={4}>
-      <ButtonBase
-        component="label"
-        role={undefined}
-        tabIndex={-1} // prevent label from tab focus
-        aria-label="Avatar image"
-        sx={{
-          borderRadius: "40px",
-          "&:has(:focus-visible)": {
-            outline: "2px solid",
-            outlineOffset: "2px",
-          },
-        }}
-      >
-        <Avatar
-          alt={profileData?.firstname}
-          src={getImageUrl(profileData?.photo)}
-          sx={{ height: "100px", width: "100px", marginTop: "1rem" }}
-        />
-        <img
-          // type="file"
-          // accept="image/*"
-          style={{
-            border: 0,
-            clip: "rect(0 0 0 0)",
-            height: "60px",
-            margin: "-1px",
-            overflow: "hidden",
-            padding: 0,
-            position: "absolute",
-            whiteSpace: "nowrap",
-            width: "60px",
-          }}
-          // onChange={handleAvatarChange}
-        />
-      </ButtonBase>
-      <h2>{profileData?.firstname + " " + profileData?.lastname}</h2>
+    <>
+      {loading ? (
+        <ProfileSkeleton />
+      ) : (
+        <Box padding={4}>
+          <ButtonBase
+            component="label"
+            role={undefined}
+            tabIndex={-1} // prevent label from tab focus
+            aria-label="Avatar image"
+            sx={{
+              borderRadius: "40px",
+              "&:has(:focus-visible)": {
+                outline: "2px solid",
+                outlineOffset: "2px",
+              },
+            }}
+          >
+            <Avatar
+              alt={profileData?.firstname}
+              src={getImageUrl(profileData?.photo)}
+              sx={{ height: "100px", width: "100px", marginTop: "1rem" }}
+            />
+            <img
+              // type="file"
+              // accept="image/*"
+              style={{
+                border: 0,
+                clip: "rect(0 0 0 0)",
+                height: "60px",
+                margin: "-1px",
+                overflow: "hidden",
+                padding: 0,
+                position: "absolute",
+                whiteSpace: "nowrap",
+                width: "60px",
+              }}
+              // onChange={handleAvatarChange}
+            />
+          </ButtonBase>
+          <h2>{profileData?.firstname + " " + profileData?.lastname}</h2>
 
-      {/* onSubmit={handleSubmit} */}
-      <form>
-        <Grid container spacing={3}>
-          <Grid size={6}>
-            <Item>
-              <input
-                type="text"
-                placeholder="First Name"
-                style={{
-                  border: "none",
-                  outline: "none",
-                  paddingLeft: "3px",
-                  width: "100%",
-                }}
-                onChange={handleChange}
-                value={"FIRST NAME : " + " " + profileData?.firstname}
-                name="firstname"
-              />
-            </Item>
-            {/* {errors.fname} */}
-          </Grid>
-          <Grid size={6}>
-            <Item>
-              <input
-                type="text"
-                placeholder="Last Name"
-                style={{
-                  border: "none",
-                  outline: "none",
-                  padding: "3px",
-                  width: "100%",
-                }}
-                onChange={handleChange}
-                value={"SURNAME : " + " " + profileData?.lastname}
-                name="lname"
-              />
-            </Item>
-            {/* {errors.lname} */}
-          </Grid>
-          <Grid size={6}>
-            <Item>
-              <input
-                type="text"
-                placeholder="Email Address"
-                style={{
-                  border: "none",
-                  outline: "none",
-                  padding: "3px",
-                  width: "100%",
-                }}
-                onChange={handleChange}
-                value={"EMAIL : " + " " + profileData?.email}
-                name="email"
-              />
-            </Item>
-            {/* {errors.email} */}
-          </Grid>
-          <Grid size={6}>
-            <Item>
-              <input
-                type="text"
-                placeholder="Age"
-                style={{
-                  border: "none",
-                  outline: "none",
-                  padding: "3px",
-                  width: "100%",
-                }}
-                onChange={handleChange}
-                value={"AGE : " + " " + profileData?.age}
-                name="contact"
-              />
-            </Item>
-            {/* {errors.age} */}
-          </Grid>
+          {/* onSubmit={handleSubmit} */}
+          <form>
+            <Grid container spacing={3}>
+              {Object.entries(profileData || {}).map(([key, value]) => {
+                if (fieldsToExclude.includes(key)) {
+                  return null;
+                }
+                const fieldType =
+                  key === "email" ? "email" : key === "age" ? "number" : "text";
+                const displayLabel =
+                  fieldDisplayNames[key] ||
+                  key.charAt(0).toUpperCase() + key.slice(1);
 
-          <Grid>
-            {/* onClick={handleSubmit} */}
-            <Button variant="contained" color="inherit">
-              Save Profile
-            </Button>
-          </Grid>
-          <Grid>
-            <Button variant="contained" color="success" onClick={handleReset}>
-              Reset
-            </Button>
-          </Grid>
-          <Grid>
-            <Button variant="contained" color="info" onClick={handleReset}>
-              Edit
-            </Button>
-          </Grid>
-        </Grid>
-      </form>
-    </Box>
+                return (
+                  <Grid key={key}>
+                    <TextField
+                      fullWidth
+                      label={displayLabel}
+                      type={fieldType}
+                      name={key}
+                      value={value || ""}
+                    />
+                  </Grid>
+                );
+              })}
+
+              <Grid container>
+                <Grid>
+                  {/* onClick={handleSubmit} */}
+                  <Button variant="contained" color="inherit">
+                    Save Profile
+                  </Button>
+                </Grid>
+                <Grid>
+                  <Button
+                    variant="contained"
+                    color="success"
+                    // onClick={handleReset}
+                  >
+                    Reset
+                  </Button>
+                </Grid>
+                <Grid>
+                  <Button
+                    variant="contained"
+                    color="info"
+                    // onClick={handleReset}
+                  >
+                    Edit
+                  </Button>
+                </Grid>
+              </Grid>
+            </Grid>
+          </form>
+        </Box>
+      )}
+    </>
   );
 };

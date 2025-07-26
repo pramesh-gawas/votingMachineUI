@@ -19,7 +19,7 @@ export const signUpStyle = {
 
 export const User = () => {
   const [loading, setLoading] = useState(true);
-  const [user, setUser] = useState();
+  const [user, setUser] = useState([]);
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -27,7 +27,7 @@ export const User = () => {
   const [addOpen, setAddOpen] = useState(false);
   const handleAddOpen = () => setAddOpen(true);
   const handleAddClose = () => setAddOpen(false);
-  const [updateUser, setUpdateUser] = useState();
+  const [updateUser, setUpdateUser] = useState([]);
   const navigate = useNavigate();
   const { userID } = useParams();
 
@@ -74,7 +74,7 @@ export const User = () => {
   const loadUser = async () => {
     setLoading(true);
     try {
-      const { error, userdata, message } = await UserList();
+      const { error, userdata } = await UserList();
       if (!userdata) {
         Toaster(error, "error");
         if (error === "invalid token") {
@@ -85,7 +85,7 @@ export const User = () => {
       }
       setUser(userdata);
       setLoading(false);
-      Toaster(message, "success");
+      // Toaster(message, "success");
     } catch (err) {
       console.error(err);
     }
