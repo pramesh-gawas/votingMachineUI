@@ -1,5 +1,5 @@
-// const API_BASE_URL = import.meta.env.VITE_API_URL;
-import { API_BASE_URL } from "../ApiUrl_";
+const API_BASE_URL = import.meta.env.VITE_API_URL;
+// import { API_BASE_URL } from "../ApiUrl_";
 
 interface UserProfileOptions extends RequestInit {
   headers?: {
