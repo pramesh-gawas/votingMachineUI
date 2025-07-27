@@ -26,8 +26,8 @@ export const AddCandidate = ({
   loadCandidate,
   handleClose,
 }: addCandidateProps) => {
-  const [name, setName] = useState<string>();
-  const [age, setAge] = useState<string>();
+  const [name, setName] = useState<string>("");
+  const [age, setAge] = useState<string>("");
   const [party, setParty] = useState<string>("");
   const [errors, setErrors] = useState<addcandidateerror>({});
   const Navigate = useNavigate();

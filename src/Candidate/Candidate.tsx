@@ -5,11 +5,12 @@ import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import SendIcon from "@mui/icons-material/Send";
 import { AddCandidate } from "../addCandidate/AddCandidate";
-import { Box, Typography } from "@mui/material";
+import { Box, Grid, Typography } from "@mui/material";
 import { Toaster } from "../common/Toaster";
+import { NodataFound } from "../common/NodataFound";
 
 export const Candidate = () => {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [candidate, setCandidate] = useState([]);
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
@@ -21,6 +22,7 @@ export const Candidate = () => {
   const [updateCandidate, SetupdateCandidate] = useState();
   const navigate = useNavigate();
 
+  const candidateCount = candidate?.length || 0;
   const renderCandidateCardContent = useCallback(
     (candidateItem: any) => (
       <>
@@ -85,10 +87,12 @@ export const Candidate = () => {
   useEffect(() => {
     loadCandidate();
   }, []);
-
   return (
     <Box>
-      <h2>Candidate Control</h2>
+      <Grid container spacing={2}>
+        <h2>Candidate Control </h2>
+        <h2>Toatal Candidate Count ({candidateCount})</h2>
+      </Grid>
       <BasicModal
         text={"add candidate"}
         icon={<SendIcon></SendIcon>}
@@ -102,6 +106,7 @@ export const Candidate = () => {
           handleClose={handleAddClose}
         ></AddCandidate>
       </BasicModal>
+      {candidateCount === 0 && loading === false && <NodataFound />}
 
       <Cards
         list={candidate}

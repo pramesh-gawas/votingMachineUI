@@ -7,6 +7,7 @@ import { CandidateList } from "../apiIntegration/api";
 import { CandidateCount } from "../apiIntegration/api";
 import { useEffect, useState } from "react";
 import { DashboardSkeleton } from "../skeleton/DashboardSkeleton";
+import { NodataFound } from "../common/NodataFound";
 
 interface candidateList {
   party: string;
@@ -34,7 +35,7 @@ export const Item = styled(Paper)(({ theme }) => ({
 export const Home = () => {
   const [candidate, setCandidateList] = useState([]);
   const [candidateCount, setCandidateCount] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const loadCandidateList = async () => {
@@ -65,6 +66,8 @@ export const Home = () => {
 
     loadCandidateCount();
   }, []);
+
+  const canidateCountLength = candidateCount?.length || 0;
 
   return (
     <Box>
@@ -101,7 +104,11 @@ export const Home = () => {
               marginBlockStart: "30px",
             }}
           >
-            <h2>Candidate List</h2>
+            <Grid container spacing={2}>
+              <h2>Candidate List </h2>
+              <h2>Toatal Candidate Count ({canidateCountLength})</h2>
+            </Grid>
+            {canidateCountLength === 0 && loading === false && <NodataFound />}
             <Grid container spacing={3} sx={{ justifyContent: "space-evenly" }}>
               {candidate?.map((item: candidateList, index) => (
                 <Grid sx={{ width: "16rem" }} key={index} boxShadow={3}>

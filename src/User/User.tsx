@@ -4,9 +4,10 @@ import { DeleteUser, UserList } from "../apiIntegration/api";
 import { useCallback, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import SendIcon from "@mui/icons-material/Send";
-import { Typography } from "@mui/material";
+import { Grid, Typography } from "@mui/material";
 import { UpdateUsers } from "../updateUser/UpdateUsers";
 import { Toaster } from "../common/Toaster";
+import { NodataFound } from "../common/NodataFound";
 
 export const signUpStyle = {
   margin: "auto",
@@ -18,7 +19,7 @@ export const signUpStyle = {
 };
 
 export const User = () => {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [user, setUser] = useState([]);
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
@@ -30,6 +31,8 @@ export const User = () => {
   const [updateUser, setUpdateUser] = useState([]);
   const navigate = useNavigate();
   const { userID } = useParams();
+
+  const userCount = user?.length || 0;
 
   const renderCandidateCardContent = useCallback(
     (candidateItem: any) => (
@@ -97,7 +100,11 @@ export const User = () => {
 
   return (
     <>
-      <h2>User Control</h2>
+      <Grid container spacing={2}>
+        <h2>User Control </h2>
+        <h2>Toatal User Count ({userCount})</h2>
+      </Grid>
+
       <BasicModal
         text={"add user"}
         icon={<SendIcon></SendIcon>}
@@ -114,6 +121,7 @@ export const User = () => {
           user={undefined}
         ></UpdateUsers>
       </BasicModal>
+      {userCount === 0 && loading === false && <NodataFound />}
 
       <Cards
         list={user}
