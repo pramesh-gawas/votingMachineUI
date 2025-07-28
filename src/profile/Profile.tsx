@@ -1,14 +1,12 @@
 import * as React from "react";
 import Avatar from "@mui/material/Avatar";
 import ButtonBase from "@mui/material/ButtonBase";
-
 import Grid from "@mui/material/Grid";
-import Button from "@mui/material/Button";
 import { UserProfile } from "../apiIntegration/api";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { getImageUrl } from "../common/url";
-import { Box, TextField } from "@mui/material";
+import { Box, Button, TextField } from "@mui/material";
 import { Toaster } from "../common/Toaster";
 import { ProfileSkeleton } from "../skeleton/ProfileSkeleton";
 
@@ -143,6 +141,7 @@ export const Profile = () => {
     "createdAt",
     "updatedAt",
     "__v",
+    "isVoted",
   ];
 
   return (
@@ -200,7 +199,6 @@ export const Profile = () => {
                 const displayLabel =
                   fieldDisplayNames[key] ||
                   key.charAt(0).toUpperCase() + key.slice(1);
-
                 return (
                   <Grid key={key}>
                     <TextField

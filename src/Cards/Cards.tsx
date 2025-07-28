@@ -3,7 +3,7 @@ import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
-import { Box, Grid, Modal } from "@mui/material";
+import { Box, Grid, Modal, Typography } from "@mui/material";
 import { useParams } from "react-router-dom";
 import CloseIcon from "@mui/icons-material/Close";
 import { style } from "../common/Modal";
@@ -81,21 +81,34 @@ export const Cards = ({
               <Card
                 sx={{
                   maxWidth: 295,
-                  padding: 5,
+                  padding: 2,
                   width: "100%",
                   justifyContent: "center",
                   border: "lightgray",
                   borderRadius: "20px",
-                }}
-                style={{
-                  backgroundColor: c.role === "admin" ? "red" : "#1976d2",
+                  boxShadow: 4,
+                  backgroundColor: "#1976d2",
                 }}
                 key={index}
               >
+                <Grid
+                  sx={{
+                    justifyItems: "center",
+                    borderRadius: "20px",
+                    backgroundColor: "#FFFF",
+                    color: c.role === "admin" ? "red" : "#1976d2",
+                  }}
+                >
+                  <Typography gutterBottom variant="h5" component="div">
+                    {c?.role}
+                  </Typography>
+                </Grid>
+
                 <CardMedia
                   sx={{
                     height: 240,
                     borderRadius: "20px",
+                    outline: "1px solid black",
                   }}
                   image={URl(c.photo)}
                   title={c.firstname}
