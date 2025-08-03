@@ -55,17 +55,20 @@ export const Navbar = ({ auth, role }: any) => {
   }, []);
 
   const authPages = React.useMemo(() => {
-    const pages = [
-      { name: "Sign up", action: "/user/signup" },
-      { name: "Sign in", action: "/user/login" },
-    ];
+    const pages = [];
+
     if (auth) {
-      pages.length = 0;
       pages.push({ name: "Home", action: "/user/home" });
+      if (role === "voter") {
+        pages.push({ name: "Voting", action: "/candidate/vote" });
+      }
+    } else {
+      pages.push(
+        { name: "Sign up", action: "/user/signup" },
+        { name: "Sign in", action: "/user/login" }
+      );
     }
-    if (auth && role === "voter") {
-      pages.push({ name: "voting", action: "/candidate/vote" });
-    }
+
     return pages;
   }, [auth, role]);
 
