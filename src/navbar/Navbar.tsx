@@ -59,9 +59,7 @@ export const Navbar = ({ auth, role }: any) => {
 
     if (auth) {
       pages.push({ name: "Home", action: "/user/home" });
-      if (role === "voter") {
-        pages.push({ name: "Voting", action: "/candidate/vote" });
-      }
+      pages.push({ name: "Voting", action: "/candidate/vote" });
     } else {
       pages.push(
         { name: "Sign up", action: "/user/signup" },
