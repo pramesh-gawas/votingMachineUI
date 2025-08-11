@@ -13,6 +13,7 @@ import { CardSkeleton } from "../skeleton/CardSkeleton";
 import type { Key } from "react";
 // const API_BASE_URL = import.meta.env.VITE_API_URL;
 
+const defaultUrl = "https://placehold.co/140x140/cccccc/000000?text=No+Image";
 interface cardProps {
   list?: any;
   renderCandidateCardContent?: any;
@@ -102,7 +103,7 @@ export const Cards = ({
                     borderRadius: "20px",
                     outline: "1px solid black",
                   }}
-                  image={c.photo}
+                  image={c.photo ?? defaultUrl}
                   title={c.firstname}
                 />
                 <CardContent sx={{ flexGrow: 1 }}>
