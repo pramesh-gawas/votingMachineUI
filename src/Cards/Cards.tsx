@@ -11,15 +11,7 @@ import { UpdateCandidates } from "../updateCandidate/UpdateCandidates";
 import { UpdateUsers } from "../updateUser/UpdateUsers";
 import { CardSkeleton } from "../skeleton/CardSkeleton";
 import type { Key } from "react";
-const API_BASE_URL = import.meta.env.VITE_API_URL;
-
-export const URl = (path: string) => {
-  if (!path) {
-    return "https://placehold.co/140x140/cccccc/000000?text=No+Image";
-  }
-  const normalizedPath = path.replace(/\\/g, "/");
-  return `${API_BASE_URL}/${normalizedPath}`;
-};
+// const API_BASE_URL = import.meta.env.VITE_API_URL;
 
 interface cardProps {
   list?: any;
@@ -110,7 +102,7 @@ export const Cards = ({
                     borderRadius: "20px",
                     outline: "1px solid black",
                   }}
-                  image={URl(c.photo)}
+                  image={c.photo}
                   title={c.firstname}
                 />
                 <CardContent sx={{ flexGrow: 1 }}>

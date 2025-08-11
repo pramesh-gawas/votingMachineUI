@@ -10,7 +10,6 @@ import {
   Avatar,
 } from "@mui/material";
 import { AddUser, UpdateUser } from "../apiIntegration/api";
-import { URl } from "../Cards/Cards";
 import { Toaster } from "../common/Toaster";
 
 interface updateUserProps {
@@ -50,7 +49,7 @@ export const UpdateUsers = ({
   const [errors, setErrors] = useState<errorUpdate>({});
   const [role, setRole] = useState(user?.role ?? "");
   const [avatarSrc, setAvatarSrc] = useState<string | undefined>(
-    URl(user?.photo) ?? ""
+    user?.photo ?? ""
   );
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
 

@@ -15,7 +15,6 @@ import AdbIcon from "@mui/icons-material/Adb";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { UserProfile } from "../apiIntegration/api";
-import { getImageUrl } from "../common/url";
 import { Toaster } from "../common/Toaster";
 interface profile {
   photo: string;
@@ -212,7 +211,7 @@ export const Navbar = ({ auth, role }: any) => {
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                   <Avatar
                     alt={profileData?.firstname}
-                    src={getImageUrl(profileData?.photo)}
+                    src={profileData?.photo}
                   />
                 </IconButton>
               </Tooltip>

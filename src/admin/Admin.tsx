@@ -27,7 +27,6 @@ import MailIcon from "@mui/icons-material/Mail";
 import { Avatar, Menu, MenuItem, Tooltip } from "@mui/material";
 import { Outlet, useNavigate } from "react-router-dom";
 import { UserProfile } from "../apiIntegration/api";
-import { getImageUrl } from "../common/url";
 import { Toaster } from "../common/Toaster";
 const drawerWidth = 200;
 
@@ -227,7 +226,7 @@ export const Admin = () => {
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                   <Avatar
                     alt={profileData?.firstname}
-                    src={getImageUrl(profileData?.photo)}
+                    src={profileData?.photo}
                   />
                 </IconButton>
               </Tooltip>

@@ -83,7 +83,6 @@ export const SignUp = () => {
     if (selectedFile) {
       formData.append("photo", selectedFile);
     }
-    console.log(formData);
     if (!validate()) return;
 
     try {

@@ -5,7 +5,6 @@ import Grid from "@mui/material/Grid";
 import { UserProfile } from "../apiIntegration/api";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { getImageUrl } from "../common/url";
 import { Box, Button, TextField } from "@mui/material";
 import { Toaster } from "../common/Toaster";
 import { ProfileSkeleton } from "../skeleton/ProfileSkeleton";
@@ -165,7 +164,7 @@ export const Profile = () => {
           >
             <Avatar
               alt={profileData?.firstname}
-              src={getImageUrl(profileData?.photo)}
+              src={profileData?.photo}
               sx={{ height: "100px", width: "100px", marginTop: "1rem" }}
             />
             <img
