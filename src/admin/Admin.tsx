@@ -217,6 +217,22 @@ export const Admin = () => {
               ]}
             >
               <MenuIcon />
+              <Typography
+                variant="h6"
+                noWrap
+                component="a"
+                href="#app-bar-with-responsive-menu"
+                sx={{
+                  display: { xs: "none", md: "flex" },
+                  fontFamily: "monospace",
+                  fontWeight: 700,
+                  letterSpacing: ".3rem",
+                  color: "inherit",
+                  textDecoration: "none",
+                }}
+              >
+                E-Vote Hub
+              </Typography>
             </IconButton>
             <Typography variant="h6" noWrap component="div">
               Admin Panel - {profileData?.firstname}
