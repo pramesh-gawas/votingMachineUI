@@ -187,7 +187,7 @@ export const Navbar = ({ auth, role }: any) => {
               textDecoration: "none",
             }}
           >
-            LOGO
+            E-Vote Hub
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {authPages.map((page) => (
