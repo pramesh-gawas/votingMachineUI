@@ -11,6 +11,7 @@ import {
 } from "@mui/material";
 import { AddUser, UpdateUser } from "../apiIntegration/api";
 import { Toaster } from "../common/Toaster";
+import { BasicModal } from "../common/Modal";
 
 interface updateUserProps {
   user?: any;
@@ -47,11 +48,13 @@ export const UpdateUsers = ({
   const [address, setAddress] = useState(user?.address ?? "");
   const [password, setPassword] = useState(user?.password ?? "");
   const [errors, setErrors] = useState<errorUpdate>({});
-  const [role, setRole] = useState(user?.role ?? "");
+  const [role, setRole] = useState(user?.role ?? "voter");
   const [avatarSrc, setAvatarSrc] = useState<string | undefined>(
     user?.photo ?? ""
   );
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
 
   const handleAvatarChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -85,6 +88,7 @@ export const UpdateUsers = ({
         setAvatarSrc("");
         handleClose();
         loadUser();
+        window.location.reload();
       }
     } catch (err: any) {
       Toaster(err, "error");
@@ -116,9 +120,12 @@ export const UpdateUsers = ({
     }
   };
 
-  const handleSubmit = async (event: { preventDefault: () => void }) => {
+  const handleConfirmModal = (event: { preventDefault: () => void }) => {
     event.preventDefault();
+    setOpen(true);
+  };
 
+  const handleSubmit = async () => {
     const formData = new FormData();
 
     formData.append("firstname", firstname);
@@ -190,7 +197,12 @@ export const UpdateUsers = ({
         <Typography component="h1" variant="h5">
           {title}
         </Typography>
-        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+        <Box
+          component="form"
+          onSubmit={handleConfirmModal}
+          noValidate
+          sx={{ mt: 1 }}
+        >
           <Avatar
             alt="profile image"
             src={avatarSrc}
@@ -347,6 +359,35 @@ export const UpdateUsers = ({
           </Button>
         </Box>
       </Box>
+      {open && (
+        <BasicModal
+          text={""}
+          icon={undefined}
+          addOpen={open}
+          handleOpen={handleOpen}
+          handleClose={handleClose}
+          signUpStyle={undefined}
+          children={
+            <>
+              <p>Are you sure you want to {title}? </p>
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "end",
+                  gap: "12px",
+                }}
+              >
+                <Button onClick={handleSubmit} variant="contained">
+                  Yes
+                </Button>
+                <Button onClick={handleClose} variant="outlined">
+                  No
+                </Button>
+              </Box>
+            </>
+          }
+        ></BasicModal>
+      )}
     </Container>
   );
 };

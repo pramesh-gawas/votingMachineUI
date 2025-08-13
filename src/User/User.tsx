@@ -4,7 +4,7 @@ import { DeleteUser, UserList } from "../apiIntegration/api";
 import { useCallback, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import SendIcon from "@mui/icons-material/Send";
-import { Grid, Typography } from "@mui/material";
+import { Box, Button, Grid, Typography } from "@mui/material";
 import { UpdateUsers } from "../updateUser/UpdateUsers";
 import { Toaster } from "../common/Toaster";
 import { NodataFound } from "../common/NodataFound";
@@ -24,10 +24,12 @@ export const User = () => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-
   const [addOpen, setAddOpen] = useState(false);
   const handleAddOpen = () => setAddOpen(true);
   const handleAddClose = () => setAddOpen(false);
+  const [openDelete, setopenDelete] = useState(false);
+  const handleOpenDeleteModal = () => setopenDelete(true);
+  const handleCloseDeleteModal = () => setopenDelete(false);
   const [updateUser, setUpdateUser] = useState([]);
   const navigate = useNavigate();
   const { userID } = useParams();
@@ -53,7 +55,10 @@ export const User = () => {
     []
   );
 
-  const handleDeleteUser = async (userID: any) => {
+  const handleConfirmDelete = () => {
+    handleOpenDeleteModal();
+  };
+  const handleDeleteUser = async () => {
     try {
       navigate(`/admin/user/${userID}`);
       const { response, message, error } = await DeleteUser(userID);
@@ -128,7 +133,7 @@ export const User = () => {
         renderCandidateCardContent={renderCandidateCardContent}
         handleClose={handleClose}
         open={open}
-        handleDelete={handleDeleteUser}
+        handleDelete={handleConfirmDelete}
         handleUpdate={handleUpdateUser}
         updateCandidate={undefined}
         updateUser={updateUser}
@@ -138,6 +143,35 @@ export const User = () => {
         loadUser={loadUser}
         loading={loading}
       ></Cards>
+      {openDelete && (
+        <BasicModal
+          text={""}
+          icon={undefined}
+          addOpen={openDelete}
+          handleOpen={openDelete}
+          handleClose={handleCloseDeleteModal}
+          signUpStyle={undefined}
+          children={
+            <>
+              <p>Are you sure you want to delete the user? </p>
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "end",
+                  gap: "12px",
+                }}
+              >
+                <Button onClick={handleDeleteUser} variant="contained">
+                  Yes
+                </Button>
+                <Button onClick={handleCloseDeleteModal} variant="outlined">
+                  No
+                </Button>
+              </Box>
+            </>
+          }
+        ></BasicModal>
+      )}
     </>
   );
 };

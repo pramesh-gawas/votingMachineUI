@@ -2,10 +2,10 @@ import { Cards } from "../Cards/Cards";
 import { BasicModal } from "../common/Modal";
 import { CandidateList, DeleteCandidate } from "../apiIntegration/api";
 import { useCallback, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import SendIcon from "@mui/icons-material/Send";
 import { AddCandidate } from "../addCandidate/AddCandidate";
-import { Box, Grid, Typography } from "@mui/material";
+import { Box, Button, Grid, Typography } from "@mui/material";
 import { Toaster } from "../common/Toaster";
 import { NodataFound } from "../common/NodataFound";
 
@@ -15,11 +15,14 @@ export const Candidate = () => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-
+  const [openDelete, setopenDelete] = useState(false);
+  const handleOpenDeleteModal = () => setopenDelete(true);
+  const handleCloseDeleteModal = () => setopenDelete(false);
   const [addOpen, setAddOpen] = useState(false);
   const handleAddOpen = () => setAddOpen(true);
   const handleAddClose = () => setAddOpen(false);
   const [updateCandidate, SetupdateCandidate] = useState();
+  const { candidateID } = useParams();
   const navigate = useNavigate();
 
   const candidateCount = candidate?.length || 0;
@@ -42,7 +45,11 @@ export const Candidate = () => {
     []
   );
 
-  const handleDelete = async (candidateID: any) => {
+  const handleDeleteConfirmCandidate = () => {
+    handleOpenDeleteModal();
+  };
+
+  const handleDelete = async () => {
     try {
       navigate(`/admin/candidate/${candidateID}`);
       const { response, message, error } = await DeleteCandidate(candidateID);
@@ -56,6 +63,7 @@ export const Candidate = () => {
     } catch (error) {
       console.error(error);
     }
+    handleCloseDeleteModal();
   };
 
   const handleUpdate = (c: any) => {
@@ -115,7 +123,7 @@ export const Candidate = () => {
         updateUser={undefined}
         handleClose={handleClose}
         open={open}
-        handleDelete={handleDelete}
+        handleDelete={handleDeleteConfirmCandidate}
         updateCandidate={updateCandidate}
         compStyle={undefined}
         loadCandidate={loadCandidate}
@@ -123,6 +131,35 @@ export const Candidate = () => {
         loadUser={undefined}
         loading={loading}
       ></Cards>
+      {openDelete && (
+        <BasicModal
+          text={""}
+          icon={undefined}
+          addOpen={openDelete}
+          handleOpen={openDelete}
+          handleClose={handleCloseDeleteModal}
+          signUpStyle={undefined}
+          children={
+            <>
+              <p>Are you sure you want to delete the candidate? </p>
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "end",
+                  gap: "12px",
+                }}
+              >
+                <Button onClick={handleDelete} variant="contained">
+                  Yes
+                </Button>
+                <Button onClick={handleCloseDeleteModal} variant="outlined">
+                  No
+                </Button>
+              </Box>
+            </>
+          }
+        ></BasicModal>
+      )}
     </Box>
   );
 };

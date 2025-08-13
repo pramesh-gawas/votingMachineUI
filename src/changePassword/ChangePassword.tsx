@@ -46,10 +46,7 @@ export const ChangePassword = () => {
   };
 
   const validate = () => {
-    const newErrors: errorInterface = {
-      currentpassword: "",
-      newpassword: "",
-    };
+    const newErrors: errorInterface = {};
     const passwordRegex = /^.{6,}$/;
     if (!currentpassword) {
       newErrors.currentpassword = "currentpassword is required";

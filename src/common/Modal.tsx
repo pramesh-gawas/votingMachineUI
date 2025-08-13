@@ -22,7 +22,7 @@ interface basicModalProps {
   handleOpen: any;
   handleClose: any;
   signUpStyle: any;
-  children: react.ReactNode;
+  children?: react.ReactNode;
 }
 
 export const BasicModal = ({

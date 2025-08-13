@@ -3,6 +3,7 @@ import { Button, TextField, Box, Typography } from "@mui/material";
 
 import { UpdateCandidate } from "../apiIntegration/api";
 import { Toaster } from "../common/Toaster";
+import { BasicModal } from "../common/Modal";
 
 interface updateCandidateProps {
   updateCandidate: any;
@@ -27,6 +28,8 @@ export const UpdateCandidates = ({
   const [age, setAge] = useState(updateCandidate?.age);
   const [party, setParty] = useState(updateCandidate?.party);
   const [errors, setErrors] = useState<errorCandidate>({});
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
 
   const validate = () => {
     const newErrors: errorCandidate = {};
@@ -43,8 +46,12 @@ export const UpdateCandidates = ({
     return Object.keys(newErrors).length === 0; // Return true if no errors
   };
 
-  const handleSubmit = async (event: { preventDefault: () => void }) => {
+  const handleConfirmationModal = (event: { preventDefault: () => void }) => {
     event.preventDefault();
+    handleOpen();
+  };
+
+  const handleSubmit = async () => {
     const obj = {
       name: name || updateCandidate?.name,
       age: age || updateCandidate?.age,
@@ -80,7 +87,12 @@ export const UpdateCandidates = ({
         width: "100%",
       }}
     >
-      <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+      <Box
+        component="form"
+        onSubmit={handleConfirmationModal}
+        noValidate
+        sx={{ mt: 1 }}
+      >
         <Typography component="h1" variant="h5">
           Update Candidate
         </Typography>
@@ -137,6 +149,35 @@ export const UpdateCandidates = ({
           Update
         </Button>
       </Box>
+      {open && (
+        <BasicModal
+          text={""}
+          icon={undefined}
+          addOpen={open}
+          handleOpen={handleOpen}
+          handleClose={handleClose}
+          signUpStyle={undefined}
+          children={
+            <>
+              <p>Are you sure you want to update Candidate? </p>
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "end",
+                  gap: "12px",
+                }}
+              >
+                <Button onClick={handleSubmit} variant="contained">
+                  Yes
+                </Button>
+                <Button onClick={handleClose} variant="outlined">
+                  No
+                </Button>
+              </Box>
+            </>
+          }
+        ></BasicModal>
+      )}
     </Box>
   );
 };

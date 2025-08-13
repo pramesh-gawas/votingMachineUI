@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import { SignUp } from "../signUp/SignUp";
 import { Profile } from "../profile/Profile";
-import { ChangePassword } from "../chnagePassword/ChangePassword";
+import { ChangePassword } from "../changePassword/ChangePassword";
 import { SignIn } from "../SignIn/SignIn";
 import { Home } from "../home/Home";
 import { Admin } from "../admin/Admin";
